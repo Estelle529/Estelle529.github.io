@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			.bigPic{
+				width: 800px;
+				height: 450px;
+				position: relative;
+				margin: 50px auto 0px;
+				
+			}
+			.bigItem{
+				width: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				transition: 0.7s;
+				opacity: 0;
+			}
+			.smallPic{
+				width: 800px;
+				margin: 5px auto;
+				font-size: 0;
+			}
+			.smallItem{
+				width: 160px;
+				padding: 4px;
+				box-sizing: border-box;
+			}
+			.active{
+				box-shadow: 0 5px 15px #666;
+				transform: translateY(-5px);
+				transition: 0.5s;
+				border-bottom-right-radius: 10px;
+				border-bottom-left-radius: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="bigPic">
+			<img src="img/a.jpg" alt="" class="bigItem">
+			<img src="img/b.jpg" alt="" class="bigItem">
+			<img src="img/c.jpg" alt="" class="bigItem">
+			<img src="img/d.jpg" alt="" class="bigItem">
+			<img src="img/e.jpg" alt="" class="bigItem">
+		</div>
+		<div class="smallPic">
+			<img src="img/a.jpg" alt="" class="smallItem">
+			<img src="img/b.jpg" alt="" class="smallItem">
+			<img src="img/c.jpg" alt="" class="smallItem">
+			<img src="img/d.jpg" alt="" class="smallItem">
+			<img src="img/e.jpg" alt="" class="smallItem">
+		</div>
+	</body>
+	<script type="text/javascript">
+		var bigs = document.getElementsByClassName("bigItem");
+		var smalls = document.getElementsByClassName("smallItem");
+		currentIndex = 0;
+		bigs[currentIndex].style.opacity = 1;
+		smalls[currentIndex].classList.add("active");
+		for(var i = 0; i < smalls.length; i++){
+			smalls[i].index = i;
+			smalls[i].onclick = function(){
+				//清除上一个大小图片的样式
+				smalls[currentIndex].classList.remove("active");
+				bigs[currentIndex].style.opacity = 0;
+				//给当前大小图片加上样式
+				this.classList.add("active");
+				bigs[this.index].style.opacity = 1;
+				//改变当前索引值
+				currentIndex = this.index;
+			}
+		}
+	</script>
+</html>
