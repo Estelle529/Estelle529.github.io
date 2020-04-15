@@ -1,0 +1,401 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.setWidth {
+	width: 1200px;
+	min-width: 1200px;
+	margin: 0 auto;
+}
+
+.loginHead {
+	width: 100%;
+	height: 30px;
+	background-color: rgb(241, 241, 241);
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	font-size: 12px;
+	color: #525252;
+}
+
+.rightFlex,
+.leftFlex {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	cursor: pointer;
+	padding: 0 15px;
+}
+
+.leftFlex:hover,
+.rightFlex:hover {
+	color: #DC3C5B;
+}
+
+.leftFlex {
+	padding: 0 10px;
+}
+
+.solid {
+	content: '';
+	width: 1px;
+	height: 15px;
+	background-color: #D9D9D9;
+}
+
+.changeBgc:hover {
+	background-color: #fff;
+}
+
+.rightFlex:hover .down,
+.leftFlex:hover .down {
+	animation: rotate 0.3s both;
+}
+
+.phone span:first-child,
+.link span:first-child {
+	font-weight: bolder;
+	color: #DC3C5B;
+}
+
+.phone span,
+.link span {
+	margin: 0 1px;
+}
+
+.navLeft,
+.navRight {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.down {
+	color: #C4B3AE;
+	padding-left: 2px;
+}
+
+.welcome {
+	padding: 0 10px;
+}
+
+.user {
+	font-size: 20px;
+	color: #DC3C5B;
+}
+
+.hoverColor {
+	font-size: 12px;
+	color: #525252;
+	padding: 0 10px;
+}
+
+.loginText {
+	padding: 0;
+}
+
+.hoverColor:hover {
+	color: rgb(255, 102, 0);
+	cursor: pointer;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(180deg);
+	}
+}
+
+.phoneImg {
+	background-color: #fff;
+	position: absolute;
+	display: none;
+}
+
+.phoneImg div {
+	width: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgb(241, 241, 241);
+	padding: 15px;
+}
+
+.phoneImg img {
+	width: 100px;
+}
+
+.phoneImg span {
+	display: block;
+	font-size: 12px;
+	margin-top: 10px;
+	color: #525252;
+}
+
+.hovGet {
+	background-color: #fff;
+	position: absolute;
+	z-index: 3;
+	display: none;
+	overflow: hidden;
+	border: 1px solid rgb(241, 241, 241);
+}
+
+.hovGet li {
+	text-align: center;
+	color: #525252;
+	padding: 5px;
+}
+
+h5 {
+	padding: 5px;
+}
+
+.serve ul,
+.webNav ul {
+	width: 220px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.webNav ul {
+	width: 440px;
+}
+
+.serve li,
+.webNav li {
+	width: 100px;
+	text-align: left;
+}
+
+
+.loginLogo {
+	padding: 20px 0;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logoLeft {
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+
+.logoLeft a {
+	display: block;
+	width: 200px;
+	height: 80px;
+	background-image: url(../img/logo.png);
+	background-size: 100% 100%;
+}
+
+.longSolid {
+	width: 1.5px;
+	height: 50px;
+	background-color: #F3F3F3;
+}
+
+.logoRight {
+	padding-right: 20px;
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+
+.loginLogo h3 {
+	font-size: 20px;
+	margin-left: 20px;
+	font-weight: 400;
+}
+
+.logoRight .iconfont {
+	margin: 10px;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	border-radius: 50%;
+	border: 2px solid #A9A9A9;
+	color: #A9A9A9;
+	font-size: 25px;
+}
+
+.contect span {
+	color: #666;
+	font-size: 15px;
+}
+
+.contect p {
+	color: #E02445;
+	font-size: 25px;
+}
+
+
+
+.loginBody {
+	width: 100%;
+	background-color: #3D82E1;
+}
+
+.loginContent {
+	position: relative;
+}
+
+.form {
+	background-color: #fff;
+	position: absolute;
+	right: 0px;
+	top: 80px;
+	width: 340px;
+	height: 300px;
+	padding: 30px;
+	box-shadow: 0px 0px 5px #666;
+}
+
+.form h2 {
+	margin-bottom: 30px;
+	font-weight: 300;
+}
+
+.inputBox {
+	display: flex;
+	width: 100%;
+	border: 1px solid #A9A9A9;
+	margin-bottom: 15px;
+}
+
+.inputBox span {
+	display: inline-block;
+	width: 45px;
+	height: 45px;
+	background-color: #A9A9A9;
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+	font-size: 30px;
+}
+
+.inputBox input {
+	padding: 15px;
+	height: 15px;
+	border: none;
+	width: 280px;
+	color: #A9A9A9;
+}
+
+.checkBox {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+.checkBox div {
+	display: flex;
+	align-items: center;
+}
+
+.checkBox div:first-child label {
+	font-size: 12px;
+	margin-left: 5px;
+}
+
+.checkBox a {
+	font-size: 12px;
+	margin: 0 5px;
+	color: #444;
+}
+
+.checkBox .solid {
+	color: #444;
+}
+
+button {
+	margin-bottom: 15px;
+	width: 100%;
+	height: 45px;
+	color: #fff;
+	background-color: #E02445;
+	line-height: 45px;
+	text-align: center;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+}
+.form p{
+	text-align: right;
+	font-size: 12px;
+}
+
+.loginFoot{
+	display: flex;
+	padding-top: 30px;
+	justify-content: space-between;
+	align-items: center;
+}
+.footLeft ul{
+	display: flex;
+	align-items: center;
+	color: #444;
+}
+.footLeft ul li{
+	margin: 15px;
+}
+.footLeft ul li:first-child{
+	margin-left: 0;
+}
+.footLeft ul li a{
+	color: #444;
+}
+.footLeft p{
+	color: #999;
+	font-size: 12px;
+	margin-bottom: 30px;
+}
+.footLeft p a{
+	color: #444;
+}
+.footLeft p:last-child{
+	display: flex;
+	height: 30px;
+	margin-left: -2px;
+}
+.footLeft p:last-child img{
+	height: 30px;
+}
+.footRight{
+	width: 200px;
+	height: 100px;
+	padding-left: 30px;
+	border-left: 1px solid #E7E7E7;
+}
+.footRight div span{
+	display: inline-block;
+	font-size: 45px;
+	color: #E7E7E7;
+}
+.footRight a:hover .iconfont{
+	transform: rotate(360deg);
+	color: #E02445;
+	transition: 0.5s;
+}
