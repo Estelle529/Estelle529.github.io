@@ -1,0 +1,398 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.setWidth {
+	width: 1200px;
+	min-width: 1200px;
+	margin: 0 auto;
+}
+
+.loginHead {
+	width: 100%;
+	height: 30px;
+	background-color: rgb(241, 241, 241);
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	font-size: 12px;
+	color: #525252;
+}
+
+.rightFlex,
+.leftFlex {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	cursor: pointer;
+	padding: 0 15px;
+}
+
+.leftFlex:hover,
+.rightFlex:hover {
+	color: #DC3C5B;
+}
+
+.leftFlex {
+	padding: 0 10px;
+}
+
+.solid {
+	content: '';
+	width: 1px;
+	height: 15px;
+	background-color: #D9D9D9;
+}
+
+.changeBgc:hover {
+	background-color: #fff;
+}
+
+.rightFlex:hover .down,
+.leftFlex:hover .down {
+	animation: rotate 0.3s both;
+}
+
+.phone span:first-child,
+.link span:first-child {
+	font-weight: bolder;
+	color: #DC3C5B;
+}
+
+.phone span,
+.link span {
+	margin: 0 1px;
+}
+
+.navLeft,
+.navRight {
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.down {
+	color: #C4B3AE;
+	padding-left: 2px;
+}
+
+.welcome {
+	padding: 0 10px;
+}
+
+.user {
+	font-size: 20px;
+	color: #DC3C5B;
+}
+
+.hoverColor {
+	font-size: 12px;
+	color: #525252;
+	padding: 0 10px;
+}
+
+.loginText {
+	padding: 0;
+}
+
+.hoverColor:hover {
+	color: rgb(255, 102, 0);
+	cursor: pointer;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(180deg);
+	}
+}
+
+.phoneImg {
+	background-color: #fff;
+	position: absolute;
+	display: none;
+	z-index: 3;
+}
+
+.phoneImg div {
+	width: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgb(241, 241, 241);
+	padding: 15px;
+}
+
+.phoneImg img {
+	width: 100px;
+}
+
+.phoneImg span {
+	display: block;
+	font-size: 12px;
+	margin-top: 10px;
+	color: #525252;
+}
+
+.hovGet {
+	background-color: #fff;
+	position: absolute;
+	z-index: 3;
+	display: none;
+	overflow: hidden;
+	border: 1px solid rgb(241, 241, 241);
+}
+
+.hovGet li {
+	text-align: center;
+	color: #525252;
+	padding: 5px;
+}
+
+h5 {
+	padding: 5px;
+}
+
+.serve ul,
+.webNav ul {
+	width: 220px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.webNav ul {
+	width: 440px;
+}
+
+.serve li,
+.webNav li {
+	width: 100px;
+	text-align: left;
+}
+
+
+.loginLogo {
+	padding: 20px 0;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logoLeft {
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+
+.logoLeft a {
+	display: block;
+	width: 200px;
+	height: 80px;
+	background-image: url(../img/logo.png);
+	background-size: 100% 100%;
+}
+
+.longSolid {
+	width: 1.5px;
+	height: 50px;
+	background-color: #F3F3F3;
+}
+
+.logoRight {
+	padding-right: 20px;
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+
+.loginLogo h3 {
+	font-size: 20px;
+	margin-left: 20px;
+	font-weight: 400;
+}
+
+.logoRight .iconfont {
+	margin: 10px;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	border-radius: 50%;
+	border: 2px solid #A9A9A9;
+	color: #A9A9A9;
+	font-size: 25px;
+}
+
+.contect span {
+	color: #666;
+	font-size: 15px;
+}
+
+.contect p {
+	color: #E02445;
+	font-size: 25px;
+}
+.registerBody{
+	width: 100%;
+	background-color: #F8F8F8;
+}
+.registerCon div:first-child{
+	position: relative;
+	height: 100px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	padding: 30px 0px;
+}
+.dot{
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: #E02445;
+	position: absolute;
+	left: 227px;
+	top: 99px;
+}
+.dot::after, .dot::before{
+	content: '';
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: #ccc;
+	position: absolute;
+	left: 375px;
+	top: 0px;
+}
+.dot::after{
+	left: 719px;
+}
+.pro{
+	width: 65%;
+	display: flex;
+	justify-content: space-between;
+	font-size: 12px;
+}
+.pro span:first-child{
+	color: #E02445;
+}
+progress{
+	width: 60%;
+	height: 5px;
+}
+progress::-webkit-progress-bar
+{
+    background-color:#d7d7d7;
+}
+progress::-webkit-progress-value{
+    background-color: #E02445;
+    border-radius: ; 
+}
+.registerBox{
+	width: 70%;
+	background-color: #fff;
+	padding-left: 10%;
+	padding-top: 30px;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	padding-bottom: 30px;
+}
+.registerBox span{
+	font-size: 15px;
+	margin-bottom: 10px;
+}
+.tel, .click{
+	width: 300px;
+	height: 30px;
+	margin-bottom: 30px;
+	font-size: 12px;
+}
+.tel, .getClick{
+	padding-left: 10px;
+}
+.getClick, .click1{
+	width: 120px;
+	height: 30px;
+	margin-bottom: 30px;
+}
+.registerBox p label{
+	font-size: 12px;
+}
+.registerBox p a{
+	font-size: 12px;
+	color: #E02445;
+}
+.next{
+	width: 80%;
+	height: 80px;
+	margin: 3px auto;
+	background-color: #fff;
+}
+.next button{
+	width: 200px;
+	height: 50px;
+	text-align: center;
+	background-color: #ccc;
+	border: none;
+	border-radius: 5px;
+	margin: 15px 0px 15px 40%;
+	color: #fff;
+	cursor: pointer;
+}
+.registerFoot{
+	width: 100%;
+	background-color: #1B1B1B;
+}
+.footCon{
+	padding-top: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #575757;
+}
+.footCon p{
+	margin-bottom: 15px;
+	font-size: 13px;
+}
+.footCon ul{
+	display: flex;
+	margin-bottom: 15px;
+}
+
+.footCon ul li {
+	margin: 0 15px;
+	font-size: 13px;
+}
+.footCon .iconfont{
+	color: #E02445;
+	margin: 0 10px;
+}
+.footCon a{
+	color: #575757;
+}
+.footCon a:hover{
+	color: #bbb;
+}
+.footCon img{
+	height: 30px;
+}
