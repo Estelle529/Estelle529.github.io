@@ -127,6 +127,7 @@ a {
 	background-color: #fff;
 	position: absolute;
 	display: none;
+	z-index: 3;
 }
 
 .phoneImg div {
@@ -360,6 +361,9 @@ button {
 }
 .footLeft ul li{
 	margin: 15px;
+}
+.footLeft ul li:hover a{
+	color: #E02445;
 }
 .footLeft ul li:first-child{
 	margin-left: 0;
