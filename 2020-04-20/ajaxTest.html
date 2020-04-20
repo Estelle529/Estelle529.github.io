@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ajax加载歌手列表</title>
+		<style type="text/css">
+			.container {
+				width: 1200px;
+				margin: 0 auto;
+				min-width: 1200px;
+			}
+
+			.category {
+				width: 1200px;
+				min-width: 1200px;
+				position: fixed;
+				background-color: #fff;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			ul {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				list-style: none;
+			}
+
+			li {
+				width: 150px;
+				margin: 0 10px;
+			}
+
+			li img {
+				width: 150px;
+				height: 150px;
+			}
+
+			li h3 {
+				text-align: center;
+			}
+
+			button {
+				border: none;
+				width: 99px;
+				height: 30px;
+				margin: 2.5px;
+				cursor: pointer;
+			}
+
+			.active {
+				background-color: skyblue;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="category">
+			<button class="active">全部</button>
+			<button>华语男</button>
+			<button>华语女</button>
+			<button>华语组合</button>
+			<button>日韩男</button>
+			<button>日韩女</button>
+			<button>日韩组合</button>
+			<button>欧美男</button>
+			<button>欧美女</button>
+			<button>欧美组合</button>
+			<button>其他</button>
+		</div>
+		<div class="container">
+			<ul>
+
+			</ul>
+		</div>
+	</body>
+	<script>
+		var btns = document.getElementsByTagName("button");
+
+		//默认加载全部类别歌手
+		var categoryIndex = 0;
+		//初始化加载第一页
+		var pageIndex = 1;
+
+		//封装函数，请求数据
+		function getData(categoryIndex, pageIndex, pageSize) {
+			//如果传入每一页的数量，就按照传入的来，否则默认100
+			pageSize = pageSize ? pageSize : 100;
+			//1.创建请求对象
+			var singer = new XMLHttpRequest();
+			//2.指定请求方式及路径
+			singer.open("GET", "http://vebcoder.cn:9090/artist/artistInfo?category=" + categoryIndex + "&pn=" + pageIndex +
+				"&rn=" + pageSize);
+			//3.发送请求
+			singer.send();
+			//4.监听请求成功的回调函数
+			singer.onreadystatechange = function() {
+				if (singer.status == 200 && singer.readyState == 4) {
+					//成功获取
+					setPage(JSON.parse(singer.responseText).data.artistList)
+				}
+			}
+		}
+
+		function setPage(data) {
+			var html = "";
+			for (var i = 0; i < data.length; i++) {
+				//如果有歌手图片就用，如果没有歌手图片的话，用默认的图片
+				data[i].pic = data[i].pic?data[i].pic:"http://img3.kuwo.cn/star/starheads/300/96/39/3155308302.jpg";
+				html += '<li><img src="' + data[i].pic + '" alt=""><h3>' + data[i].name + '</h3></li>';
+			}
+			var ul = document.getElementsByTagName("ul")[0];
+			ul.innerHTML += html;
+		}
+
+		//默认加载全部类别歌手的第一页
+		getData(categoryIndex, pageIndex);
+
+		//监听滚动事件
+		window.onscroll = setInterval(function(e) {
+			//滚上去的高度
+			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			//可以看见的高度
+			var visiableHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			//文档总高度
+			var totalHeight = document.body.scrollHeight;
+			if (Math.round(scrollTop) + visiableHeight >= totalHeight) {
+				pageIndex++;
+				getData(categoryIndex, pageIndex);
+				console.log(document.getElementsByTagName("ul")[0].children.length);//检查一下有多少个li
+			}
+		},1000)
+		
+		//给按钮添加点击事件
+		for(var i = 0; i < btns.length; i++){
+			btns[i].index = i;
+			btns[i].onclick = function(){
+				//清除上一个按钮的样式
+				btns[categoryIndex].classList.remove("active");
+				//当前按钮加上样式
+				this.classList.add("active");
+				//清空页面
+				document.getElementsByTagName("ul")[0].innerHTML = "";
+				//页面变为1，加载第一页
+				pageIndex=1;
+				//改变歌手类别
+				categoryIndex = this.index;
+				//加载数据
+				getData(categoryIndex, pageIndex);
+			}
+		}
+	</script>
+</html>
