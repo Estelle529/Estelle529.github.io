@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style type="text/css">
+			html {
+				overflow-y: scroll;
+			}
+
+			body {
+				margin: 0;
+				padding: 0;
+			}
+
+			.setWidth {
+				width: 1200px;
+				min-width: 1200px;
+				margin: 0 auto;
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+			}
+
+			.head {
+				position: fixed;
+				left: 50%;
+				height: 65px;
+				transform: translateX(-50%);
+				background-color: #fff;
+			}
+
+			.head input {
+				width: 500px;
+				padding-left: 20px;
+				height: 40px;
+				border: 2px solid #00aaff;
+			}
+
+			.head button {
+				height: 46px;
+				border: none;
+				padding: 10px;
+				background-color: #00aaff;
+				letter-spacing: 1px;
+				color: #fff;
+			}
+
+			.cancle {
+				position: absolute;
+				top: 0;
+				left: 52%;
+				background-color: #fff;
+				width: 500px;
+				height: 60px;
+				line-height: 60px;
+				display: none;
+				cursor: pointer;
+			}
+
+			a {
+				text-decoration: none;
+				color: #666;
+			}
+
+			ul {
+				display: flex;
+				align-items: center;
+				list-style: none;
+			}
+
+			ul li {
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+
+			.active {
+				border-bottom: 2px solid #00aaff;
+			}
+
+			.productList {
+				padding-top: 70px;
+			}
+
+			.product {
+				padding: 5px;
+				margin: 0px 8px 20px 0;
+				display: block;
+				width: 220px;
+				height: 285px;
+				border: 1px solid #e0e0e0;
+			}
+
+			.product:hover {
+				border-color: #00aaff;
+			}
+
+			.product img {
+				width: 220px;
+				height: 220px;
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			.price {
+				color: #00aaff;
+				margin-right: 10px;
+			}
+
+			.product p {
+				margin: 0;
+				margin-top: 5px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.login, .register{
+				width: 100px;
+				height: 30px;
+				line-height: 30px;
+				position: absolute;
+				right: 0;
+				top: 0px;
+				background-color: #00aaff;
+			}
+			.register{
+				right: 120px;
+			}
+			.btns{
+				width: 220px;
+				height: 30px;
+				position: fixed;
+				top: 0;
+				right: 10px;
+				
+			}
+			#login, #register{
+				width: 300px;
+				height: 200px;
+				background-color: antiquewhite;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: space-around;
+				display: none;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%,-50%);
+				z-index: 3;
+				border-radius: 5px;
+				padding: 10px 0;
+			}
+			#login button, #register button, #login input, #register input{
+				width: 70%;
+				height: 30px;
+				line-height: 30px;
+			}
+			#white{
+				background-color: #fff;
+				opacity: 0.5;
+				position: absolute;
+				z-index: 1;
+				width: 100%;
+				height: 100%;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="head setWidth">
+			<input type="text" class="keyWord" placeholder="请输入关键字" /><button id="search">搜索商品</button>
+			<div class="cancle">取消</div>
+			<ul>
+				<li class="active">咖啡</li>
+				<li>饮食</li>
+				<li>正餐</li>
+				<li>男装</li>
+				<li>女装</li>
+				<li>眼镜</li>
+				<li>鞋靴</li>
+			</ul>
+		</div>
+		<p class="btns">
+			<button class="login">登录</button>
+			<button class="register">注册</button>
+		</p>
+		<div id="white"></div>
+		<div id="register">
+			<input type="text" class="regUser" placeholder="请输入您的用户名" />
+			<input type="text" class="regPass" placeholder="请输入您的密码" />
+			<button type="button" class="goRegister">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
+			<button type="reset" class="reset">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
+		</div>
+		<div id="login">
+			<input type="text" class="logUser" placeholder="请输入您的用户名" />
+			<input type="text" class="logPass" placeholder="请输入您的密码" />
+			<button type="button" class="goLogin">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+			<button type="reset" class="reset">重&nbsp;&nbsp;&nbsp;&nbsp;置</button>
+		</div>
+		<div class="productList setWidth">
+		</div>
+	</body>
+	<script src="jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+		var baseurl = "http://vebcoder.cn:9527/api";
+		var page = 1;
+		var activeIndex = 0;
+		var type_one = "咖啡";
+		setPage(page, type_one);
+
+		$(".head li").each(function() {
+			$(this).click(function() {
+				$(".head li").eq(activeIndex).removeClass("active");
+				activeIndex = $(".head li").index($(this));
+				$(this).addClass("active");
+				//清空页面
+				$(".productList")[0].innerHTML = "";
+				//切换种类后 加载第一页
+				page = 1;
+				//种类改变
+				type_one = $(this).text();
+				setPage(page, type_one);
+			})
+		})
+
+		function setPage(page, type_one) {
+			$.get(baseurl + "/goodList?page=" + 1 + "&type_one=" + type_one, function(res, status) {
+				var html = "";
+				$.each(res, function(index, product) {
+					html += '<a class="product" href="product.html?id=' + product.Id + '"  target="_blank" ><img src="' + product.img_list_url +
+						'"alt=""></img>' +
+						'<span class="price">￥' + product.price + '元</span>' + product.mack + '<p>' + product.title + '</p></a>';
+				})
+				$(".productList")[0].innerHTML += html;
+			})
+		}
+
+
+
+		$(".keyWord").focus(function() {
+			$(".cancle").css("display", "block");
+		})
+		$("#search").click(function() {
+			var keyWord = $(".keyWord").val();
+			if (keyWord) {
+				//清空页面
+				$(".productList")[0].innerHTML = "";
+				$.get(baseurl + "/search?word=" + keyWord, function(res, status) {
+					var html = "";
+					$.each(res, function(index, product) {
+						html += '<a class="product" href="product.html?id=' + product.Id + '" target="_blank" data-id=' + product.Id + '><img src="' +
+							product.img_list_url + '"alt=""></img>' + '<span class="price">￥' + product.price + '元</span>' + product.mack +
+							'<p>' + product.title + '</p></a>';
+					})
+					$(".productList")[0].innerHTML += html;
+				})
+			} else {
+				return;
+			}
+		})
+
+		$(".cancle").click(function() {
+			$(".keyWord").val("");
+			$(this).css("display", "none");
+			$(".productList")[0].innerHTML = "";
+			page = 1;
+			setPage(page, type_one);
+		})
+		
+		$(".login").click(function(){
+			$("#login").css("display","flex");
+			$("#white").css("display","block");
+		})
+		$(".register").click(function(){
+			$("#register").css("display","flex");
+			$("#white").css("display","block");
+		})
+		$("#white").click(function(){
+			$(this).css("display","none");
+			$("#login").css("display","none");
+			$("#register").css("display","none");
+		})
+		
+		$(".goRegister").click(function(){
+			var userName = $(".regUser").val();
+			var passWord = $(".regPass").val();
+			$.get(baseurl + "/register",{
+				userName:userName,
+				password:passWord
+			},function(res){
+				if(res.code == 0){
+					alert("用户名被占用");
+				}else if(res.code == 1){
+					alert("注册成功，请登录");
+					$("#register").css("display","none");
+					$("#white").css("display","none");
+				}
+			})
+		})
+		
+		$(".goLogin").click(function(){
+			var userName = $(".logUser").val();
+			var passWord = $(".logPass").val();
+			$.get(baseurl + "/login",{
+				userName:userName,
+				password:passWord
+			},function(res){
+				if(res.code == 1){
+					alert("登录成功");
+					$("#login").css("display","none");
+					$("#white").css("display","none");
+					$(".btns").html('欢迎'+userName+'登录'+'<button class="out">退出</button>');
+					//此处应该设置缓存
+				}else if(res.code == 0){
+					alert("登陆失败");
+				}
+			})
+		})
+		
+		$(".reset").click(function(){
+			$("input").val("");
+		})
+	</script>
+</html>
