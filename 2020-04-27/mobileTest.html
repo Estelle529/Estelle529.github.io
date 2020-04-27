@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>移动开发测试2020-04-27王鹏</title>
+	<link rel="stylesheet" type="text/css" href="iconfont.css"/>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html{
+			font-size: 13.3vw;
+		}
+		a{
+			text-decoration: none;
+		}
+		body{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.nav{
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+		select{
+			width: 1.2rem;
+			height: 0.5rem;
+			border: none;
+			font-size: 0.3rem;
+			color: #FF5C5C;
+		}
+		.search{
+			display: flex;
+			align-items: center;
+			padding: 0 15px;
+			width: 4rem;
+			height: 0.5rem;
+			background-color: #F3F3F3;
+			border-radius: 0.3rem;
+		}
+		.search input{
+			width: 3.5rem;
+			border: none;
+			padding-left: 0.15rem;
+			background-color: #f3f3f3;
+			font-size: 0.25rem;
+			margin-left: 0.1rem;
+		}
+		.search .iconfont{
+			font-size: 0.3rem;
+		}
+		.rightNav{
+			width: 1.2rem;
+			height: 0.6rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+		}
+		.nav .rightNav .iconfont{
+			font-size: 0.5rem;
+			color: #FF5C5C;
+		}
+		.banner{
+			margin-top: 0.25rem;
+		}
+		.banner, .banner img{
+			width: 7.5rem;
+			height: 3.4rem;
+		}
+		.items{
+			width: 6.5rem;
+			height: 1.75rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			list-style: none;
+		}
+		.items li{
+			width: 1.3rem;
+			height: 1.75rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+		}
+		.items li img{
+			width: 1rem;
+			height: 1rem;
+		}
+		.items li span{
+			width: 1.3rem;
+			text-align: center;
+			font-size: 0.3rem;
+		}
+		.products{
+			width: 7.5rem;
+			height: 2.85rem;
+			display: flex;
+			border-top: 0.2rem solid #f3f3f3;
+		}
+		.products .left{
+			width: 3.35rem;
+			height: 2.65rem;
+			padding: 0.1rem 0.2rem;
+			border-right: 1px solid #f3f3f3;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		}
+		.products .left img{
+			width: 3.35rem;
+			height: 1.8rem;
+		}
+		.products .left h3,
+		.products .right h3{
+			font-size: 0.3rem;
+			color: #FF5E5E;
+		}
+		.products .left span,
+		.products .right span{
+			margin-top: 0.1rem;
+			font-size: 0.2rem;
+			color: #B8B8B8;
+		}
+		.products .right{
+			width: 3.34rem;
+			height: 2.65rem;
+			padding: 0.1rem 0.2rem;
+		}
+		.products .right .top{
+			border-bottom: 1px solid #f3f3f3;
+		}
+		.products .right .top,
+		.products .right .bottom{
+			width: 3.34rem;
+			height: 1.32rem;
+		}
+		.products .right .top div,
+		.products .right .bottom div{
+			width: 1.74rem;
+			height: 1.32rem;
+			float: right;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+		}
+		.products .right .top h3{
+			color: #F17B39;
+		}
+		.products .right .bottom h3{
+			color: #259FD6;
+		}
+		.products .right img{
+			width: 1.6rem;
+			height: 1.3rem;
+		}
+		.hot{
+			width: 7.5rem;
+			height: 2.2rem;
+			border-top: 0.2rem solid #f3f3f3;
+		}
+		.hot img{
+			width: 7.5rem;
+			height: 2.2rem;
+		}
+		.article{
+			width: 7.5rem;
+			border-top: 0.2rem solid #f3f3f3;
+		}
+		.article .head{
+			width: 7.1rem;
+			height: 0.8rem;
+			padding: 0 0.2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.article .head h3{
+			font-size: 0.3rem;
+		}
+		.article .head .headLeft{
+			height: 0.8rem;
+			display: flex;
+			align-items: center;
+		}
+		.article .head .headLeft img{
+			width: 0.6rem;
+			height: 0.6rem;
+			margin-right: 0.1rem;
+		}
+		.article .head .headLeft span{
+			font-size: 0.2rem;
+			padding: 0.1rem;
+			text-align: center;
+			color: #FFF;
+			background-color: #FF5E5E;
+			border-radius: 0.3rem;
+			margin-left: 0.1rem;
+		}
+		.article .head .headRight{
+			height: 0.2rem;
+			line-height: 0.2rem;
+			font-size: 0.2rem;
+			padding: 0.1rem;
+			text-align: center;
+			color: #FF5E5E;
+			background-color: #FFF;
+			border-radius: 0.2rem;
+			border: 1px solid #FF5E5E;
+		}
+		.article .title{
+			font-size: 0.25rem;
+			padding: 0 0.2rem;
+			color: #6F6F6F;
+		}
+		.article .body{
+			width: 7.1rem;
+			padding: 0 0.2rem 0.2rem;
+		}
+		.article .body .imgs{
+			width: 7.1rem;
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			margin-top: 0.15rem;
+		}
+		.article .body .bigImg{
+			width: 7.1rem;
+			height: 1.85rem;
+		}
+		.article .body .smallImg{
+			width: 3.5rem;
+			height: 1.85rem;
+			margin-bottom: 0.15rem;
+		}
+		.article .body .price{
+			width: 3.6rem;
+			height: 0.5rem;
+			line-height: 0.5rem;
+			margin-left: 3.3rem;
+			padding: 0.1rem;
+			background-color: #FF5E5E;
+			color: #fff;
+			border-radius: 0.1rem;
+			font-size: 0.35rem;
+			margin-top: 0.15rem;
+		}
+		.article .body .price div{
+			display: inline-block;
+			width: 2.4rem;
+			background-color: #fff;
+			border-radius: 0.1rem;
+			color: #FF5E5E;
+			font-weight: blod;
+		}
+		.article .body .price div del{
+			color: #6f6f6f;
+			font-size: 0.3rem;
+		}
+		.article .foot,
+		.article .foot1{
+			width: 7.1rem;
+			height: 0.5rem;
+			padding: 0.2rem 0.2rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-top: 1px solid #b0b0b0;
+		}
+		.article .foot1{
+			padding: 0 0.2rem;
+		}
+		.article .foot .tip{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-size: 0.3rem;
+			color: #FF5E5E;
+		}
+		.article .foot .tip .iconfont{
+			font-size: 0.25rem;
+			font-weight: bold;
+			margin-right: 0.1rem;
+		}
+		.article .foot .view,
+		.article .foot1 .view{
+			height: 0.3rem;
+			line-height: 0.3rem;
+			font-size: 0.25rem;
+			color: #999;
+		}
+		.article .foot .view .iconfont,
+		.article .foot1 .view .iconfont{
+			font-size: 0.3rem;
+			margin-left: 0.2rem;
+		}
+		.article .foot1{
+			justify-content: flex-end;
+		}
+		.loading{
+			width: 7.5rem;
+			height: 1rem;
+			line-height: 1rem;
+			text-align: center;
+			background-color: #f3f3f3;
+			font-size: 0.4rem;
+		}
+		.footNav{
+			width: 7.5rem;
+			height: 1rem;
+			padding-top: 0.1rem;
+			border-top: 1px solid #999;
+			background-color: #fff;
+			bottom: 0;
+		}
+		.footNav ul{
+			margin: 0 auto;
+			width: 7.1rem;
+			height: 1rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.footNav ul li{
+			width: 1.2rem;
+			height: 1rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.footNav ul li{
+			color: #6F6F6F;
+		}
+		.footNav ul li span{
+			font-size: 0.25rem;
+		}
+		.footNav ul li .iconfont{
+			font-size: 0.5rem;
+		}
+		.footNav ul .active{
+			color: #FF5E5E;
+		}
+		.goTop{
+			width: 0.5rem;
+			height: 0.5rem;
+			transform: rotate(-90deg);
+			color: #fff;
+			background-color: #FF5C5C;
+			font-size: 0.4rem;
+			cursor: pointer;
+			position: fixed;
+			bottom: 1.5rem;
+			right: 0.3rem;
+			line-height: 0.5rem;
+			border-radius: 50%;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<select>
+			<option value="">郑州</option>
+			<option value="">开封</option>
+			<option value="">洛阳</option>
+		</select>
+		<div class="search">
+			<span class="iconfont searchIco">&#xe72b;</span>
+			<input type="text" placeholder="搜索商家、套餐、话题"/>
+		</div>
+		<div class="rightNav">
+			<span class="iconfont">&#xe645;</span>
+			<span class="iconfont">&#xe60c;</span>
+		</div>
+	</div>
+	
+	<div class="banner">
+		<img src="img/banner1.png" >
+	</div>
+
+	<ul class="items">
+		<li>
+			<img src="img/li1.png" alt="">
+			<span>找商家</span>
+		</li>
+		<li>
+			<img src="img/li2.png" alt="">
+			<span>备婚清单</span>
+		</li>
+		<li>
+			<img src="img/li3.png" alt="">
+			<span>电子请帖</span>
+		</li>
+		<li>
+			<img src="img/li4.png" alt="">
+			<span>结婚任务</span>
+		</li>
+	</ul>
+
+	<div class="products">
+		<div class="left">
+			<h3>婚品采购</h3>
+			<span>婚纱礼服&nbsp;喜糖&nbsp;请帖</span>
+			<img src="img/flower.png" >
+		</div>
+		<div class="right">
+			<div class="top">
+				<img src="img/car.png" >
+				<div id="">
+					<h3>婚车租贷</h3>
+					<span>全程最低&nbsp;买贵退钱</span>
+				</div>
+			</div>
+			<div class="bottom">
+				<img src="img/tree.png" >
+				<div id="">
+					<h3>全球旅拍</h3>
+					<span>机票+酒店+拍摄</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="hot">
+		<img src="img/sanya.png" alt="">
+	</div>
+
+	<div class="article">
+		<div class="head">
+			<div class="headLeft">
+				<img src="img/author.png" >
+				<h3>爱燕子婚纱摄影工作室</h3>
+				<span>婚纱摄影</span>
+			</div>
+			<div class="headRight">
+				+关注
+			</div>
+		</div>
+		<p class="title">唯美浪漫婚纱照6套服装造型&nbsp;内景+外景&nbsp;多场景</p>
+		<div class="body">
+			<div class="imgs">
+				<img src="img/works1.png" class="bigImg">
+			</div>
+			<div class="price">
+				<div>￥3988
+					<del>8888</del>
+				</div>
+				立即抢
+			</div>
+		</div>
+		<div class="foot">
+			<p class="tip"><span class="iconfont">&#xe602;</span><span>小清新婚纱照&nbsp;跟拍</span></p>
+			<p class="view"><span class="iconfont">&#xe621;</span><span>2073</span></p>
+		</div>
+	</div>
+	
+	<div class="article">
+		<div class="head">
+			<div class="headLeft">
+				<img src="img/author1.png" >
+				<h3>郑州丽致龙婚纱摄影</h3>
+				<span>婚纱摄影</span>
+			</div>
+			<div class="headRight">
+				+关注
+			</div>
+		</div>
+		<p class="title">最新客片&nbsp;美懵了</p>
+		<div class="body">
+			<div class="imgs">
+				<img src="img/works2.png" class="smallImg">
+				<img src="img/works3.png" class="smallImg">
+				<img src="img/works4.png" class="smallImg">
+				<img src="img/works5.png" class="smallImg">
+			</div>
+		</div>
+		<div class="foot1">
+			<p class="view"><span class="iconfont">&#xe645;</span><span>20</span><span class="iconfont">&#xe621;</span><span>2073</span></p>
+		</div>
+	</div>
+
+	<div class="article">
+		<div class="head">
+			<div class="headLeft">
+				<img src="img/author2.png" >
+				<h3>小井定制</h3>
+				<span>婚纱策划</span>
+			</div>
+			<div class="headRight">
+				+关注
+			</div>
+		</div>
+		<p class="title">“午后花园”奢华森系婚礼</p>
+		<div class="body">
+			<div class="imgs">
+				<img src="img/works6.png" class="bigImg">
+			</div>
+			<div class="price">
+				<div>￥18800
+					<del>28888</del>
+				</div>
+				立即抢
+			</div>
+		</div>
+		<div class="foot">
+			<p class="tip"><span class="iconfont">&#xe602;</span><span>森林婚系&nbsp;婚礼花艺&nbsp;自然清新</span></p>
+			<p class="view"><span class="iconfont">&#xe621;</span><span>1649</span></p>
+		</div>
+	</div>
+	
+	<div class="article">
+		<div class="head">
+			<div class="headLeft">
+				<img src="img/author3.png" >
+				<h3>郑州丽致龙婚纱摄影</h3>
+				<span>婚纱摄影</span>
+			</div>
+			<div class="headRight">
+				+关注
+			</div>
+		</div>
+		<p class="title">专属的味道&nbsp;韩式小清新浪漫内景婚纱照</p>
+		<div class="body">
+			<div class="imgs">
+				<img src="img/works7.png" class="smallImg">
+				<img src="img/works8.png" class="smallImg">
+			</div>
+		</div>
+		<div class="foot">
+				<p class="tip"><span class="iconfont">&#xe602;</span><span>小清新婚纱照&nbsp;内景</span></p>
+				<p class="view"><span class="iconfont">&#xe621;</span><span>1931</span></p>
+		</div>
+	</div>
+	
+	<div class="loading">
+		正在加载···
+	</div>
+	
+	<div class="footNav">
+		<ul>
+			<li class="active">
+				<span class="iconfont">&#xe642;</span>
+				<span>首页</span>
+			</li>
+			<li>
+				<span class="iconfont">&#xe603;</span>
+				<span>分类</span>
+			</li>
+			<li>
+				<span class="iconfont">&#xe6c7;</span>
+				<span>新娘说</span>
+			</li>
+			<li>
+				<span class="iconfont">&#xe6fa;</span>
+				<span>工具</span>
+			</li>
+			<li>
+				<span class="iconfont">&#xe611;</span>
+				<span>我的</span>
+			</li>
+		</ul>
+	</div>
+
+	<div class="goTop">
+		&gt;
+	</div>
+</body>
+<script type="text/javascript">
+	var goTop = document.getElementsByClassName("goTop")[0];
+	function scrollTo(end, time) {
+		var start = document.body.scrollTop || document.documentElement.scrollTop;
+		var x = start;
+		var speed = (end - start) / time * 16.7;
+		var timer = setInterval(function() {
+			x += speed;
+			if (start > end) {
+				if (x <= end) {
+					x = end;
+					clearInterval(timer);
+				}
+			} else {
+				if (x >= end) {
+					x = end;
+					clearInterval(timer);
+				}
+			}
+			document.documentElement.scrollTop = x;
+		}, 16.7);
+	}
+	goTop.onclick = function(){
+		scrollTo(0,1000);
+	}
+</script>
+</html>
