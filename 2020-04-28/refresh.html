@@ -18,6 +18,7 @@
 				width: 100%;
 				height: 100%;
 			}
+
 			.head {
 				position: fixed;
 				width: 7.5rem;
@@ -101,16 +102,18 @@
 			span {
 				font-size: 0.2rem;
 			}
-			#tip{
+
+			#tip {
 				width: 100%;
-				height: 1rem;
-				line-height: 1rem;
+				height: 50px;
+				line-height: 50px;
 				font-size: 0.3rem;
 				color: #000;
 				text-align: center;
 				/* background-color: #999; */
 			}
-			#tip img{
+
+			#tip img {
 				width: 1rem;
 				height: 1rem;
 			}
@@ -135,7 +138,7 @@
 			</div>
 		</div>
 	</body>
-	
+
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/iscroll.js"></script>
 	<script type="text/javascript">
@@ -162,49 +165,56 @@
 
 		function setPage(page, type_one) {
 			$.get(baseurl + "/goodList?page=" + page + "&type_one=" + type_one, function(res, status) {
-				if(res.length <= 0){
+				if (res.length <= 0) {
 					return;
-				}else{
-					$(".productList")[0].innerHTML = '<h4 id="tip"></h4>';
+				} else {
 					var html = "";
 					$.each(res, function(index, product) {
-						html += '<a class="product" href="#"  target="_blank" ><img src="' + product.img_list_url +
+						html += '<a class="product" href="product.html?id=' + product.Id + '"  target="_blank" ><img src="' + product.img_list_url +
 							'"alt=""></img>' +
 							'<span class="price">￥' + product.price + '元</span>' + product.mack + '<p>' + product.title + '</p></a>';
 					})
 				}
 				$(".productList")[0].innerHTML += html;
+				//插入数据之后 重新计算滚动实例数据
+				isc.refresh();
 			})
 		}
-		
-		
-		var isc = new iScroll("container",{
+
+
+		var isc = new iScroll("container", {
 			//设置顶部反弹位置;
-			topOffset:50,
+			topOffset: 50,
 			//起始y向上50px
-			y:-50,
+			y: -50,
 			//定义拖动过程中回调函数
-			onScrollMove:function(){
+			onScrollMove: function() {
 				//拉到一定位置
-				if(this.y > 30){
+				if (this.y > 30) {
 					tip.innerHTML = "松开立即刷新";
 					//如果松开 设置顶部回弹点
-					this.minScrollY=-10;
-				}else{
-					tip.innerHTML = "下拉刷新";//放回去就不刷新
-					this.minScrollY=-50;
+					this.minScrollY = -10;
+				} else {
+					tip.innerHTML = "下拉刷新"; //放回去就不刷新
+					this.minScrollY = -50;
 				}
 			},
 			//滚动结束
-			onScrollEnd:function(){
-				if(this.minScrollY == -10){//发现是刷新过了
+			onScrollEnd: function() {
+				if (this.minScrollY == -10) { //发现是刷新过了
 					tip.innerHTML = '<img src="img/timg.gif">';
-					setTimeout(function(){
+					setTimeout(function() {
 						//刷新页面数据
-						page++;
-						setPage(page,type_one);
-						isc.refresh();
-					},2000)
+						page = 1;
+						$(".productList")[0].innerHTML = '<h4 id="tip"></h4>';
+						setPage(page, type_one);
+					}, 2000)
+				}
+				//如果碰到底部了
+				if (this.y == this.maxScrollY) {
+					// 触底
+					page++;
+					setPage(page, type_one);
 				}
 			}
 		})
