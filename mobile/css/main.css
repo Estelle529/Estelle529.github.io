@@ -1,0 +1,137 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 13.3vw;
+	width: 100%;
+	height: 100%;
+}
+
+div,
+p,
+li {
+	font-size: 0.3rem;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+.show {
+	z-index: 3;
+}
+
+.page {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	touch-action: none;
+}
+
+.hide {
+	display: none;
+}
+.page-1-1 {
+	background-color: #9b59b6;
+}
+
+.page-1-2 {
+	background-color: #3498db;
+}
+
+.page-2-1 {
+	background-color: #fd79a8;
+}
+
+.page-2-2 {
+	background-color: #00cec9;
+}
+
+.page-3-1 {
+	background-color: #fdcb6e;
+}
+
+.page-3-2 {
+	background-color: #fab1a0;
+}
+
+.page-4-1 {
+	background-color: #a29bfe;
+}
+
+.page-4-2 {
+	background-color: #00cec9;
+}
+.page-5-1 {
+	background-color: #dfe6e9;
+}
+
+.page-5-2 {
+	background-color: #00cec9;
+}
+.page .title {
+	font-size: 0.35rem;
+	position: absolute;
+	top: 2rem;
+	padding: 0 0.5rem;
+	text-align: center;
+}
+
+.page .desc {
+	position: absolute;
+	bottom: 3rem;
+}
+
+.page .mainImg {
+	top: 4rem;
+	position: absolute;
+	width: 4rem;
+	border-radius: 50%;
+}
+
+.page .up {
+	position: absolute;
+	bottom: 1.5rem;
+	width: 0.5rem;
+	height: 0.5rem;
+}
+
+.page .little1Img,
+.page .little2Img {
+	position: absolute;
+	width: 1rem;
+	top: 4rem;
+	left: 1rem;
+}
+
+.page .little2Img {
+	top: 5rem;
+	left: 6rem;
+}
+
+.page .bgImg {
+	position: absolute;
+	width: 7rem;
+	top: 0.5rem;
+}
+
+.page ul {
+	position: absolute;
+	list-style: none;
+	top: 4rem;
+}
+
+.page .result {
+	position: absolute;
+	bottom: 1rem;
+}
+
+.page ul li {
+	margin-top: 0.2rem;
+}
