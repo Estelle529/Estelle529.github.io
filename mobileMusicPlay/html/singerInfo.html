@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		html{
+			font-size: 13.33vw;
+		}
+		.container{
+			width: 7rem;
+			margin: 0 auto;
+			font-size: 0.3rem;
+		}
+		.container div:first-child{
+			width: 7rem;
+			height: 7rem;
+			position: fixed;
+			top: 0;
+		}
+		.container img{
+			border-radius: 0.2rem;
+		}
+		.container div:last-child{
+			width: 6.8rem;
+			margin-left: 0.2rem;
+			margin-top: 7.5rem;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+	</div>
+</body>
+<script src="../js/zepto.min.js"></script>
+<script src="../js/main.js"></script>
+<script>
+	var id = getParameters().artistid;
+	//加载歌手信息
+	$.get("http://vebcoder.cn:9090/artist/artist", {
+		artistid: id
+	}, function(res) {
+		var str = '<div><img src="' + res.data.pic300 + '" ></div><div>'+res.data.info+'</div>';
+		$(".container").html(str);
+	})
+</script>
+</html>

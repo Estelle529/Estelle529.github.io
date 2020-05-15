@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.container{
+				width: 300px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				margin: 100px auto;
+			}
+			input,button{
+				width: 90%;
+				height: 30px;
+				padding-left: 15px;
+				border-radius: 10px;
+				border: 1px solid #666;
+				margin-top: 10px;
+			}
+			button{
+				background-color: skyblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<input type="text" placeholder="用户名">
+			<input type="password" placeholder="密码">
+			<button type="button">注册</button>
+		</div>
+	</body>
+	<script src="./jquery0508.js"></script>
+	<script>
+		// var input = document.getElementsByTagName("input");
+		// var button = document.getElementsByTagName("button");
+		// button[0].onclick = function(){
+		// 	//1.创建请求对象
+		// 	var xhr = new XMLHttpRequest();
+		// 	//2.指定请求方式及路径
+		// 	xhr.open("POST","/register");
+		// 	//3.发送请求
+		// 	xhr.send("name=" + input[0].value + "&password=" + input[1].value);
+		// 	//4.监听请求成功的回调函数
+		// 	xhr.onreadystatechange = function(){
+		// 		if(xhr.status == 200 && xhr.readyState == 4){ //成功了
+		// 			//拿到请求结果
+		// 			console.log(xhr.responseText);
+		// 		}
+		// 	}
+		// }
+		$("button").click(function(){
+			$.post("/register",{
+				name:$("input").eq(0).val(),
+				password:$("input").eq(1).val()
+			},function(res){
+				alert(res=="success"?"注册成功":"用户名已存在,注册失败");
+			})
+		})
+	</script>
+</html>

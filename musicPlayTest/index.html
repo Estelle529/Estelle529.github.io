@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+		<style type="text/css">
+			html,
+			body,
+			div,
+			span,
+			button,
+			h3 {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				width: 100%;
+				height: 100%;
+			}
+
+			a {
+				text-decoration: none;
+				color: dimgray;
+			}
+
+			.container {
+				width: 1200px;
+				min-width: 1200px;
+				margin: 50px auto;
+			}
+
+			.category {
+				width: 1200px;
+				min-width: 1200px;
+				padding-top: 10px;
+				position: fixed;
+				background-color: #fff;
+				top: 0px;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 3;
+			}
+
+			ul {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				list-style: none;
+			}
+
+			li {
+				width: 150px;
+				margin: 0 10px;
+				border-radius: 10px;
+				border: 2px solid #ccc;
+				padding: 13px;
+				box-shadow: 0 0 10px #ccc;
+				margin-bottom: 15px;
+			}
+
+			li img {
+				width: 150px;
+				height: 150px;
+				border-radius: 50%;
+			}
+
+			li:hover img {
+				transform: scale(1.1);
+				transition: 0.5s;
+			}
+
+			li h3 {
+				text-align: center;
+			}
+
+			button {
+				border: none;
+				width: 99px;
+				border-radius: 20px;
+				height: 30px;
+				margin: 2.5px;
+				cursor: pointer;
+				outline: none;
+			}
+
+			.active {
+				background-color: skyblue;
+				color: #fff;
+			}
+
+			.loading {
+				width: 100%;
+				height: 100%;
+				background-color: rgb(0, 0, 0, 0.5);
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				display: none;
+				z-index: 5;
+			}
+
+			.loading img {
+				width: 200px;
+				height: 200px;
+				border-radius: 50%;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+		</style>
+	</head>
+	<body>
+		<div class="category">
+			<button type="button" list-type="0" class="active">全部</button>
+			<button type="button" list-type="1">华语男</button>
+			<button type="button" list-type="2">华语女</button>
+			<button type="button" list-type="3">华语组合</button>
+			<button type="button" list-type="4">日韩男</button>
+			<button type="button" list-type="5">日韩女</button>
+			<button type="button" list-type="6">日韩组合</button>
+			<button type="button" list-type="7">欧美男</button>
+			<button type="button" list-type="8">欧美女</button>
+			<button type="button" list-type="9">欧美组合</button>
+			<button type="button" list-type="10">其他</button>
+		</div>
+		<div class="container">
+			<ul>
+
+			</ul>
+		</div>
+		<div class="loading">
+			<img src="img/loading.gif">
+		</div>
+	</body>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/methord.js"></script>
+	<script>
+		//接口基础路径:http://vebcoder.cn:9090/
+
+		//默认请求全部分类
+		getData("get", "/artist/artistInfo", {
+			"category": 0,
+			"pn": 1,
+			"rn": 50
+		}, function(data) {
+			setPage(data.artistList);
+		});
+
+		//jquery事件委托
+		$(".category").on('click', "button", function() {
+			$(this).addClass("active").siblings().removeClass("active");
+			//获取按钮对应的类型
+			var type = $(this).attr("list-type");
+			getData("get", "/artist/artistInfo", {
+				"category": type,
+				"pn": 1,
+				"rn": 50
+			}, function(data) {
+				//切换种类要清空数据
+				$("ul").html("");
+				setPage(data.artistList);
+			});
+		});
+
+		function setPage(list) {
+			var html = "";
+			for (var i = 0; i < list.length; i++) {
+				//如果有歌手图片就用，如果没有歌手图片的话，用默认的图片
+				list[i].pic = list[i].pic ? list[i].pic : "http://img3.kuwo.cn/star/starheads/300/96/39/3155308302.jpg";
+				html += '<li><a target="blank" href="songs.html?artistid=' + list[i].id + '"><img src="' + list[i].pic +
+					'" alt=""><h3>' + list[i].name + '</h3></a></li>';
+			}
+			$("ul").html(html);
+		}
+	</script>
+</html>

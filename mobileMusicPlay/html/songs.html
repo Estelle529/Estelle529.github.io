@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/songs.css" />
+	</head>
+	<body>
+		<div class="head">
+			<div class="desc">
+
+			</div>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>专辑</th>
+					<th>歌手</th>
+					<th>歌曲</th>
+					<th>时长</th>
+					<th>播放</th>
+					<th>MV</th>
+				</tr>
+			</thead>
+		</table>
+		<div id="songs">
+			<table class="songs_head">
+				<tbody class="songs_body">
+
+				</tbody>
+			</table>
+		</div>
+		<audio src="" controls="controls">
+			当前浏览器不支持audio
+		</audio>
+		<video width="800" height="" controls="controls">
+			<source src="myvideo.mp4" type="video/mp4">
+			</source>
+			当前浏览器不支持 video直接播放，点击这里下载视频： <a href="myvideo.webm">下载视频</a>
+		</video>
+		<div class="singerMessage">
+			
+		</div>
+		<div class="bg">
+			<img src="../img/listen.gif">
+		</div>
+		<div class="loading">
+			<img src="../img/loading.gif">
+		</div>
+	</body>
+	<script src="../js/zepto.min.js"></script>
+	<script src="../js/iscroll.js"></script>
+	<script src="../js/touch1.2.js"></script>
+	<script src="../js/main.js"></script>
+	<script>
+		var id = getParameters().artistid;
+		//加载歌手信息
+		$.get("http://vebcoder.cn:9090/artist/artist", {
+			artistid: id
+		}, function(res) {
+			var html = '<img src="' + res.data.pic300 + '" ><div class="content"><h2>' + res.data.name + '</h2><p><span>' +
+				res.data.country + '</span><span>' + res.data.birthday + '</span></p><p><span>单曲数:' + res.data.musicNum +
+				'</span><span>MV数:' + res.data.mvNum + '</span></p><a target="_blank" href="singerInfo.html?artistid='+ res.data.id +'">查看歌手资料</a></div>';
+			$(".desc").html(html);
+		})
+
+		var page = 1;
+		mainGet();
+
+		var isc = new iScroll("songs", {
+			onScrollEnd: function() {
+				if (this.y == this.maxScrollY) {
+					// 触底
+					nextPage();
+				}
+			}
+		});
+
+
+
+
+		function mainGet() {
+			//加载歌曲
+			getData("get", "artist/artistMusic", {
+				"artistid": id,
+				"pn": 1,
+				"rn": 20
+			}, function(data) {
+				var list = data.list;
+				var html = "";
+				for (var i = 0; i < list.length; i++) {
+					if (list[i].hasmv == 1) {
+						html += '<tr><td><img src="' + list[i].albumpic + '" ></td><td class="singer">' + list[i].artist +
+							'</td><td class="song">' + list[i].name + '</td><td>' + list[i].songTimeMinutes +
+							'</td><td><button type="button" songId = "' + list[i].rid +
+							'">播放</button></td><td><button type="button" songId = "' + list[i].rid + '">MV</button></td></tr>'
+					} else {
+						html += '<tr><td><img src="' + list[i].albumpic + '" ></td><td class="singer">' + list[i].artist +
+							'</td><td class="song">' + list[i].name + '</td><td>' + list[i].songTimeMinutes +
+							'</td><td><button type="button" songId = "' + list[i].rid +
+							'">播放</button></td><td><button type="button" disabled="disabled">暂无MV</button></td></tr>'
+					}
+				}
+				var str = $(".songs_body").html() + html;
+				$(".songs_body").html(str);
+				isc.refresh();
+			})
+		}
+
+		function nextPage() {
+			page++;
+			mainGet();
+		}
+
+		//点击按钮
+		$("tbody").on('click', 'button', function() {
+			var id = $(this).attr("songId");
+			if ($(this).html() == "播放") {
+				//播放音乐
+				$.get("http://vebcoder.cn:9090/url?format=mp3&rid=" + id + "&response=url&type=convert_url3&br=128kmp3&from=web",
+					function(res) {
+						$("audio").prop("src", JSON.parse(res).url);
+						//让音频显示出来
+						$("audio").css("bottom", "0");
+						//play是dom对象的方法， 所以要先转化为dom对象
+						$("audio").get(0).play();
+					})
+			} else {
+				//播放MV
+				$.get("http://vebcoder.cn:9090/url?rid=" + id + "&response=url&format=mp4%7Cmkv&type=convert_url", function(res) {
+					$("video").prop("src", res);
+					//让视频显示出来
+					$("video").css("top", "4rem");
+					$(".bg").css("display", "block");
+					//play是dom对象的方法， 所以要先转化为dom对象
+					$("video").get(0).play();
+				})
+			}
+		})
+
+		$(".bg").click(function() {
+			//暂停
+			$("video").get(0).pause();
+			//隐藏视频
+			$("video").css("top", "");
+			$("video").css("bottom", "-1000px");
+			$(this).css("display", "none");
+		})
+	</script>
+</html>

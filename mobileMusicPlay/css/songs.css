@@ -1,0 +1,181 @@
+html,
+body,
+div,
+span,
+button,
+h2,p {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+	color: dimgray;
+}
+html{
+	font-size: 13.33vw;
+}
+.head {
+	background-color: #87CEEB;
+	width: 100%;
+	height: 2.2rem;
+}
+
+.desc {
+	width: 6rem;
+	height: 2.2rem;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+}
+
+.desc img {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 0.2rem;
+}
+
+.desc .content {
+	width: 5rem;
+	height: 2rem;
+	margin-left: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.desc .content h2{
+	font-size: 0.3rem;
+}
+.desc .content p{
+	margin-top: 0.1rem;
+	height: 0.3rem;
+	display: flex;
+}
+.desc .content p span{
+	font-size: 0.25rem;
+	margin-right: 0.2rem;
+}
+.desc .content a{
+	text-align: center;
+	width: 2.5rem;
+	border: none;
+	outline: none;
+	font-size: 0.25rem;
+	background-color: #EEEEEE;
+	color: #000075;
+	border-radius: 0.1rem;
+	padding: 0.05rem 0.1rem;
+}
+
+.loading,
+.bg {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0, 0, 0, 0.5);
+	position: fixed;
+	left: 0;
+	top: 0;
+	display: none;
+}
+.bg img{
+	width: 2rem;
+	height: 2rem;
+	margin: 2rem auto 0 auto;
+}
+
+.loading img {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+table{
+	width: 7rem;
+	margin: 0 auto;
+}
+.tip {
+	line-height: 40px;
+	font-size: 0.14rem;
+	text-align: center;
+	color: #3b3b3b
+}
+#songs {
+	width: 7rem;
+	height: 77vh;
+	margin: 0 auto;
+}
+
+#songs table {
+	width: 100%;
+}
+
+table {
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+thead th {
+	font-size: 0.3rem;
+	line-height: 0.4rem;
+	padding: 0.1rem 0;
+}
+
+td img {
+	width: 0.7rem;
+	height: 0.7rem;
+	border-radius: 50%;
+}
+
+tbody td {
+	text-align: center;
+	font-size: 0.3rem;
+}
+
+tbody td button {
+	outline: none;
+	width: 100%;
+	text-align: center;
+	padding: 0.1rem 0;
+	height: 0.4rem;
+	line-height: 0.25rem;
+	border-radius: 0.1rem;
+	border: none;
+	cursor: pointer;
+	font-size: 0.25rem;
+}
+
+tbody .singer,
+tbody .song {
+	width: 1.5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: left;
+}
+
+tbody tr {
+	border-top: 0.01rem solid #eee;
+}
+
+audio,
+video {
+	width: 7rem;
+	position: fixed;
+	bottom: -3rem;
+	left: 50%;
+	transform: translateX(-50%);
+	transition: 0.5s;
+	z-index: 3;
+}
+
+video {
+	bottom: -1000px;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>歌手列表</title>
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	</head>
+	<body>
+		<div class="fixed">
+			<h2>兜兜音乐</h2>
+			<img src="../img/head.gif" >
+		</div>
+		<div id="head">
+			<div id="category">
+				<button type="button" list-type="0" class="active">全部</button>
+				<button type="button" list-type="1">华语男</button>
+				<button type="button" list-type="2">华语女</button>
+				<button type="button" list-type="3">华语组合</button>
+				<button type="button" list-type="4">日韩男</button>
+				<button type="button" list-type="5">日韩女</button>
+				<button type="button" list-type="6">日韩组合</button>
+				<button type="button" list-type="7">欧美男</button>
+				<button type="button" list-type="8">欧美女</button>
+				<button type="button" list-type="9">欧美组合</button>
+				<button type="button" list-type="10">其他</button>
+			</div>
+		</div>
+		<div id="container">
+			<div class="content">
+				<div class="tip">下拉刷新</div>
+				<ul>
+					
+				</ul>
+			</div>
+		</div>
+		<div class="loading">
+		<img src="../img/loading.gif">
+	</div>
+		<script src="../js/zepto.min.js"></script>
+		<script src="../js/touch1.2.js"></script>
+		<script src="../js/iscroll.js"></script>
+		<script src="../js/main.js"></script>
+		<script>
+			//接口基础路径:http://vebcoder.cn:9090/
+			//横向滚动
+			var isc = new iScroll("head", {
+				snap: true,
+				momentum: false,
+				hScrollbar: false,
+				vScroll: false
+			})
+			
+			//默认请求全部分类
+			var type = 0;
+			var page = 1;
+			mainGet();
+			
+			
+			//纵向滚动
+			var isc1 = new iScroll("container", {
+				topOffset:40,
+				y:-40,
+				onScrollMove:function(){
+					if(this.y > 30){
+						this.minScrollY = 0;
+						$(".tip").html("松开立即刷新")
+					}else{
+						this.minScrollY = -40;
+						$(".tip").html("下拉刷新")
+					}
+				},
+				onScrollEnd:function(){
+					if(this.minScrollY == 0){
+						$(".tip").html("正在刷新···");
+						setTimeout(function(){
+							page = 1;
+							//刷新要清空数据
+							$("ul").html("");
+							mainGet();
+							isc1.refresh();
+						},1500)
+					}
+					
+					if (this.y == this.maxScrollY) {
+						// 触底
+						nextPage();
+					}
+				}
+				
+			})
+
+			
+			
+			//jquery事件委托
+			$("#category").on('click', "button", function() {
+				$(this).addClass("active").siblings().removeClass("active");
+				//获取按钮对应的类型
+				type = $(this).attr("list-type");
+				//重置page
+				page = 1;
+				//切换种类要清空数据
+				$("ul").html("");
+				mainGet();
+				//切换种类有bug,切换之后因该只加载新种类的第一页，可是经过调试发现，切换之后连续加载了两页
+			});
+			
+			function setPage(list) {
+				var html = "";
+				for (var i = 0; i < list.length; i++) {
+					//如果有歌手图片就用，如果没有歌手图片的话，用默认的图片
+					list[i].pic = list[i].pic ? list[i].pic : "http://img3.kuwo.cn/star/starheads/300/96/39/3155308302.jpg";
+					html += '<li><a target="_blank" href="songs.html?artistid=' + list[i].id + '"><img src="' + list[i].pic +
+						'" alt=""><h3>' + list[i].name + '</h3></a></li>';
+				}
+				var str = $("ul").html() + html;
+				$("ul").html(str);
+			}
+			
+			function nextPage(){
+				page++;
+				mainGet();
+			}
+			
+			function mainGet(){
+				getData("get", "/artist/artistInfo", {
+					"category": type,
+					"pn": page,
+					"rn": 30
+				}, function(data) {
+					setPage(data.artistList);
+					//绑定数据后要重新计算高度，否则划不动
+					isc1.refresh();
+				});
+			};
+		</script>
+	</body>
+</html>

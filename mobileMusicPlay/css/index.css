@@ -1,0 +1,137 @@
+html,
+body,
+div,
+span,
+button,
+h3 {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 13.33vw;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+	color: dimgray;
+}
+.fixed{
+	width: 7rem;
+	margin: 0 auto;
+	height: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.fixed h2{
+	font-size: 0.4rem;
+	font-family: "arial narrow";
+}
+.fixed img{
+	width: 1rem;
+	height: 1rem;
+}
+#head {
+	width: 7rem;
+	height: 1rem;
+	position: relative;
+	margin: 0 auto;
+}
+
+#category {
+	width: 14rem;
+	height: 1rem;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+}
+
+#category button {
+	border: none;
+	border-radius: 0.3rem;
+	height: 0.5rem;
+	cursor: pointer;
+	outline: none;
+	margin-right: 0.1rem;
+	font-size: 0.15rem;
+	padding: 0.1rem 0.2rem;
+}
+
+.active {
+	background-color: skyblue;
+	color: #fff;
+}
+
+#container {
+	width: 7rem;
+	height: 80vh;
+	margin: 0 auto;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+}
+
+.tip {
+	line-height: 40px;
+	font-size: 0.14rem;
+	text-align: center;
+	color: #3b3b3b
+}
+
+li {
+	width: 1.7rem;
+	border-radius: 0.1rem;
+	border: 0.02rem solid #ccc;
+	padding: 0.15rem 0.15rem 0rem 0.15rem;
+	box-shadow: 0 0 0.1rem #ccc;
+	margin: 0 0.11rem 0.15rem 0.11rem;
+}
+
+li a {
+	display: inline-block;
+}
+
+li img {
+	width: 1.7rem;
+	height: 1.7rem;
+	border-radius: 50%;
+}
+
+li h3 {
+	font-size: 0.15rem;
+	text-align: center;
+}
+
+
+.loading {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0, 0, 0, 0.5);
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	display: none;
+	z-index: 5;
+}
+
+.loading img {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}

@@ -1,0 +1,96 @@
+1.注意端口号为3030；
+2.连接数据库的密码及数据库名称  烦请在server->pool.js中修改
+3.接口说明
+	获取商品列表	路径:	/getList
+			方式:	get
+			参数:	page(页码，可选，默认1)	size(每页数据条数，可选，默认5)	type_one(一级分类，可选，默认“饮食”)
+			路径示例：	/getList?page=3&size=10&type_one=男装
+			返回数据示例：	[···,{
+						Id: 4730
+						address: "{"longitude":"114.978937071400","latitude":"36.486803488500"}"
+						addressLogo: "http://bfs.biyao.com/group1/M00/87/54/rBACYVwm0ACAP_Y5AADFni2wOL0780.jpg"
+						addressName: "幸福小伴"
+						comment: ············
+						goodType: "normal"
+						imageUrl: "http://bfs.biyao.com/group1/M00/FC/5C/rBACW13gtVGAJBSTAAzDhSRYbrg798_360x360.jpg"
+						imgs: ············
+						labels: "[]"
+						leadTime: "10"
+						mack: "<span style="color: #FFFFFF;background: #AB7FD1; border-color: #AB7FD1">&#x7CBE;&#x9009;</span>“
+						priceStr: "39"
+						salePoint: "用淳朴的方式追忆千年的味道，用味蕾唤起华夏的情怀"
+						sizeList: "["360g","720g"]"
+						supplier: "五星级酒店糕点制造商"
+						title: "椰丝球"
+						type_one: "饮食"
+						type_two: "糕点/小食"
+					},···]
+	
+	获取热品列表	路径:	/hotList
+			方式:	get
+			参数:	page(页码，可选，默认1)
+			路径示例：	/hotList?page=3
+			返回数据示例：	[···,{
+						Id: 1
+						address: "{"longitude":"112.963365158500","latitude":"22.523394780000"}"
+						addressLogo: "http://bfs.biyao.com/group1/M00/1E/38/rBACYVnewjuAeyk_AAB2ZvYyoQg315.jpg"
+						addressName: "Blilin 家居用品"
+						comment:········
+						evaluate: "6699"
+						goodType: "hot"
+						imageUrl: "http://bfs.biyao.com/group1/M00/3A/F0/rBACVF4T8WSAKZNtAAIL8E3WB_Y290.jpg"
+						imgs: ·······
+						labels: ········
+						leadTime: "25"
+						mack: ""
+						priceStr: "59.00"
+						salePoint: "食品级PVC材质，轻薄舒适，结实耐拉伸，食物加工安全卫生。"
+						sizeList: "["100只装"]"
+						supplier: "LIBMAN制造商"
+						title: "复工防护一次性手套 100只"
+						type_one: ""
+						type_two: ""
+					},···]
+
+	获取搜索列表	路径:	/searchList
+			方式:	get
+			参数:	key(关键词 必填)
+			路径示例：	/searchList?key=手套
+			返回数据示例：	[···,{
+						Id: 1
+						address: "{"longitude":"112.963365158500","latitude":"22.523394780000"}"
+						addressLogo: "http://bfs.biyao.com/group1/M00/1E/38/rBACYVnewjuAeyk_AAB2ZvYyoQg315.jpg"
+						addressName: "Blilin 家居用品"
+						comment:········
+						evaluate: "6699"
+						goodType: "hot"
+						imageUrl: "http://bfs.biyao.com/group1/M00/3A/F0/rBACVF4T8WSAKZNtAAIL8E3WB_Y290.jpg"
+						imgs: ·······
+						labels: ········
+						leadTime: "25"
+						mack: ""
+						priceStr: "59.00"
+						salePoint: "食品级PVC材质，轻薄舒适，结实耐拉伸，食物加工安全卫生。"
+						sizeList: "["100只装"]"
+						supplier: "LIBMAN制造商"
+						title: "复工防护一次性手套 100只"
+						type_one: ""
+						type_two: ""
+					},···]
+
+
+	获取一级分类	路径:	/category
+			方式:	get
+			路径示例：	/category
+			返回数据示例：	["","电器","个护","美妆","母婴","男装","女装","汽配","饮食","运动"]
+
+	
+	注册		路径:	/register
+			方式:	post
+			路径示例：	/register
+			参数:		{
+						name:"张三"，
+						password:"123456"
+					}
+			返回数据示例：	失败：fail		成功：success
+
