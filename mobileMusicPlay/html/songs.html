@@ -85,7 +85,7 @@
 			//加载歌曲
 			getData("get", "artist/artistMusic", {
 				"artistid": id,
-				"pn": 1,
+				"pn": page,
 				"rn": 20
 			}, function(data) {
 				var list = data.list;

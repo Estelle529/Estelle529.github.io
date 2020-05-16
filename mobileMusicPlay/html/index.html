@@ -93,6 +93,8 @@
 
 			
 			
+			
+			
 			//jquery事件委托
 			$("#category").on('click', "button", function() {
 				$(this).addClass("active").siblings().removeClass("active");
@@ -102,9 +104,31 @@
 				page = 1;
 				//切换种类要清空数据
 				$("ul").html("");
-				mainGet();
-				//切换种类有bug,切换之后因该只加载新种类的第一页，可是经过调试发现，切换之后连续加载了两页
+				//清空之后刷新回到顶部
+				isc1.refresh();
+				//这个地方为什么重新写一遍，更不是调用函数 因为调用函数会出现重复加载两遍第一页的情况
+				getData("get", "/artist/artistInfo", {
+					"category": type,
+					"pn": 1,
+					"rn": 30
+				}, function(data) {
+					var html = "";
+					var list = data.artistList;
+					for (var i = 0; i < list.length; i++) {
+						//如果有歌手图片就用，如果没有歌手图片的话，用默认的图片
+						list[i].pic = list[i].pic ? list[i].pic : "http://img3.kuwo.cn/star/starheads/300/96/39/3155308302.jpg";
+						html += '<li><a target="_blank" href="songs.html?artistid=' + list[i].id + '"><img src="' + list[i].pic +
+							'" alt=""><h3>' + list[i].name + '</h3></a></li>';
+					}
+					$("ul").html(html);
+					isc1.refresh();
+				});
 			});
+			
+			
+			
+			
+			
 			
 			function setPage(list) {
 				var html = "";
