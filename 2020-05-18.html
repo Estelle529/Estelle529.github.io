@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -136,13 +137,13 @@
 			} else {
 				//输入城市之后  转换城市的坐标  地图中心切换到对应城市
 				var node = document.createElement("script");
-				node.src = "http://api.map.baidu.com/geocoding/v3/?address=" + city +
+				node.src = "https://api.map.baidu.com/geocoding/v3/?address=" + city +
 					"&output=json&ak=https://api.map.baidu.com/api?v=3.0&type=webgl&ak=rTtXqQrs2BxG7AjwzxeRIuZbyWqnNWkC&callback=changeCity";
 				document.body.appendChild(node);
 
 				//请求店铺信息
 				var node1 = document.createElement("script");
-				node1.src = "http://api.map.baidu.com/place/v2/search?query=" + type + "&region=" + city +
+				node1.src = "https://api.map.baidu.com/place/v2/search?query=" + type + "&region=" + city +
 					"&output=json&ak=rTtXqQrs2BxG7AjwzxeRIuZbyWqnNWkC&callback=getRes";
 				document.body.appendChild(node1);
 			}
