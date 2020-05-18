@@ -10,7 +10,13 @@
 	<body>
 		<div class="fixed">
 			<h2>兜兜音乐</h2>
-			<img src="../img/head.gif" >
+			<img src="../img/head.gif">
+		</div>
+		<div id="banner">
+			<div id="banner_box">
+				
+			</div>
+			<div id="btns"></div>
 		</div>
 		<div id="head">
 			<div id="category">
@@ -31,20 +37,72 @@
 			<div class="content">
 				<div class="tip">下拉刷新</div>
 				<ul>
-					
+
 				</ul>
 			</div>
 		</div>
 		<div class="loading">
-		<img src="../img/loading.gif">
-	</div>
+			<img src="../img/loading.gif">
+		</div>
 		<script src="../js/zepto.min.js"></script>
 		<script src="../js/touch1.2.js"></script>
 		<script src="../js/iscroll.js"></script>
 		<script src="../js/main.js"></script>
 		<script>
 			//接口基础路径:http://vebcoder.cn:9090/
-			//横向滚动
+			//请求banner数据
+			$.get("http://vebcoder.cn:9090/banner/index/bannerList",function(res){
+				var html = ""
+				var html1 = "";
+				for(var i = 0; i < res.data.length; i++){
+					html+='<a target="_blank" href="' + res.data[i].url + '"><img src="' + res.data[i].pic + '" ></a>';
+					html1+='<div></div>';
+				}
+				$("#banner_box").html(html);
+				$("#btns").html(html1);
+				// 克隆图片
+				var firstImg = banner_box.children[0];
+				var lastImg = banner_box.children[banner_box.children.length - 1];
+				// 将第一个节点克隆添加到末尾
+				banner_box.appendChild(firstImg.cloneNode(true));
+				// 将最后一个节点克隆添加到首部
+				banner_box.insertBefore(lastImg.cloneNode(true), firstImg);
+				// 根据img节点个数换算宽度
+				var length = banner_box.children.length;
+				banner_box.style.width = 7 * length + "rem";
+				
+				
+				//banner横向滚动
+				var index = 0;
+				var isc0 = new iScroll("banner", {
+					snap: true,
+					momentum: false,
+					hScrollbar: false,
+					vScroll: false,
+					onScrollEnd: function() {
+						if (this.currPageX == banner_box.children.length - 1) {
+							this.scrollToPage(1, 0, 0);
+						}
+						if (this.currPageX == 0) {
+							this.scrollToPage(banner_box.children.length - 2, 0, 0);
+						}
+				
+						// 标记点颜色
+						btns.children[index].style.backgroundColor = "rgba(255,255,255,0.8)"
+						btns.children[this.currPageX - 1].style.backgroundColor = "#e53acf";
+						index = this.currPageX - 1;
+				
+					}
+				});
+				// 初始化时瞬间到达真的第一张
+				isc0.scrollToPage(1, 0, 0);
+				isc0.refresh();
+			})
+			
+			
+			
+			
+			//分类横向滚动
 			var isc = new iScroll("head", {
 				snap: true,
 				momentum: false,
@@ -52,50 +110,55 @@
 				vScroll: false
 			})
 			
+			
+
+
+
+
 			//默认请求全部分类
 			var type = 0;
 			var page = 1;
 			mainGet();
-			
-			
+
+
 			//纵向滚动
 			var isc1 = new iScroll("container", {
-				topOffset:40,
-				y:-40,
-				onScrollMove:function(){
-					if(this.y > 30){
+				topOffset: 40,
+				y: -40,
+				onScrollMove: function() {
+					if (this.y > 30) {
 						this.minScrollY = 0;
 						$(".tip").html("松开立即刷新")
-					}else{
+					} else {
 						this.minScrollY = -40;
 						$(".tip").html("下拉刷新")
 					}
 				},
-				onScrollEnd:function(){
-					if(this.minScrollY == 0){
+				onScrollEnd: function() {
+					if (this.minScrollY == 0) {
 						$(".tip").html("正在刷新···");
-						setTimeout(function(){
+						setTimeout(function() {
 							page = 1;
 							//刷新要清空数据
 							$("ul").html("");
 							mainGet();
 							isc1.refresh();
-						},1500)
+						}, 1500)
 					}
-					
+
 					if (this.y == this.maxScrollY) {
 						// 触底
 						nextPage();
 					}
 				}
-				
+
 			})
 
-			
-			
-			
-			
-			//jquery事件委托
+
+
+
+
+			//jquery事件委托 切换种类
 			$("#category").on('click', "button", function() {
 				$(this).addClass("active").siblings().removeClass("active");
 				//获取按钮对应的类型
@@ -106,7 +169,7 @@
 				$("ul").html("");
 				//清空之后刷新回到顶部
 				isc1.refresh();
-				//这个地方为什么重新写一遍，更不是调用函数 因为调用函数会出现重复加载两遍第一页的情况
+				//这个地方为什么重新写一遍，而不是调用函数 因为调用函数会出现重复加载两遍第一页的情况
 				getData("get", "/artist/artistInfo", {
 					"category": type,
 					"pn": 1,
@@ -124,12 +187,12 @@
 					isc1.refresh();
 				});
 			});
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 			function setPage(list) {
 				var html = "";
 				for (var i = 0; i < list.length; i++) {
@@ -141,13 +204,13 @@
 				var str = $("ul").html() + html;
 				$("ul").html(str);
 			}
-			
-			function nextPage(){
+
+			function nextPage() {
 				page++;
 				mainGet();
 			}
-			
-			function mainGet(){
+
+			function mainGet() {
 				getData("get", "/artist/artistInfo", {
 					"category": type,
 					"pn": page,

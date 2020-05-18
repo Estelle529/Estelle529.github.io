@@ -21,7 +21,8 @@ a {
 	text-decoration: none;
 	color: dimgray;
 }
-.fixed{
+
+.fixed {
 	width: 7rem;
 	margin: 0 auto;
 	height: 1rem;
@@ -29,14 +30,50 @@ a {
 	justify-content: space-between;
 	align-items: center;
 }
-.fixed h2{
+
+.fixed h2 {
 	font-size: 0.4rem;
 	font-family: "arial narrow";
 }
-.fixed img{
+
+.fixed img {
 	width: 1rem;
 	height: 1rem;
 }
+
+#banner {
+	margin: 0 auto;
+	width: 7rem;
+	height: 1.4rem;
+	position: relative;
+}
+
+#banner_box{
+	display: flex;
+	height: 1.4rem;
+}
+#banner_box img {
+	width: 7rem;
+	height: 1.4rem;
+}
+
+#btns {
+	position: absolute;
+	bottom: 0.2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	overflow: hidden;
+}
+
+#btns div {
+	width: 0.1rem;
+	height: 0.1rem;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.8);
+	float: left;
+	margin: 0.02rem
+}
+
 #head {
 	width: 7rem;
 	height: 1rem;
@@ -70,7 +107,7 @@ a {
 
 #container {
 	width: 7rem;
-	height: 80vh;
+	height: 74vh;
 	margin: 0 auto;
 }
 
